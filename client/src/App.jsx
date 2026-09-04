@@ -16,6 +16,9 @@ import { AdminRoute, PrivateRoute } from './components/RouteGuards';
 import ProductList from './pages/admin/ProductList';
 import ProductEdit from './pages/admin/ProductEdit';
 
+import OrderList from './pages/admin/OrderList';
+import UserList from './pages/admin/UserList';
+
 function App() {
   return (
     <div className="flex flex-col min-h-screen bg-background font-sans antialiased text-foreground">
@@ -40,6 +43,8 @@ function App() {
           <Route path="/admin" element={<AdminRoute />}>
             <Route path="productlist" element={<ProductList />} />
             <Route path="product/:id/edit" element={<ProductEdit />} />
+            <Route path="orderlist" element={<OrderList />} />
+            <Route path="userlist" element={<UserList />} />
           </Route>
         </Routes>
       </main>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingAddress } from '../slices/cartSlice';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 const Shipping = () => {
   const cart = useSelector((state) => state.cart);
@@ -25,7 +26,8 @@ const Shipping = () => {
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-2xl">
-      <div className="bg-card p-8 rounded-xl border shadow-sm">
+      <CheckoutSteps step1 step2 />
+      <div className="bg-card p-8 rounded-xl border shadow-sm mt-8">
         <h1 className="text-2xl font-bold mb-6">Shipping Address</h1>
         
         <form onSubmit={submitHandler} className="space-y-4">

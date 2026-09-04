@@ -1,21 +1,43 @@
 import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { useGetProductDetailsQuery } from '../slices/productsApiSlice';
+import { useGetProductDetailsQuery, useCreateReviewMutation } from '../slices/productsApiSlice';
 import { addToCart } from '../slices/cartSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Star, ArrowLeft, ShoppingCart, ShieldCheck, Truck } from 'lucide-react';
 
 const ProductDetails = () => {
   const { id: productId } = useParams();
   const [qty, setQty] = useState(1);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { data: product, isLoading, error } = useGetProductDetailsQuery(productId);
+  const { userInfo } = useSelector((state) => state.auth);
+  const { data: product, isLoading, error, refetch } = useGetProductDetailsQuery(productId);
+  const [createReview, { isLoading: loadingProductReview }] = useCreateReviewMutation();
 
   const addToCartHandler = () => {
     dispatch(addToCart({ ...product, qty }));
     navigate('/cart');
+  };
+
+  const submitReviewHandler = async (e) => {
+    e.preventDefault();
+    try {
+      await createReview({
+        productId,
+        rating,
+        comment,
+      }).unwrap();
+      refetch();
+      alert('Review submitted successfully');
+      setRating(0);
+      setComment('');
+    } catch (err) {
+      alert(err?.data?.message || err.error);
+    }
   };
 
   if (isLoading) {
@@ -147,10 +169,47 @@ const ProductDetails = () => {
             </ul>
 
             <h3 className="text-xl font-bold mb-4">Write a Customer Review</h3>
-            {/* The review form component can be built here or extracted, but for now we instruct the user */}
-            <div className="bg-card p-6 rounded-xl border shadow-sm max-w-2xl">
-              <p className="text-muted-foreground text-sm">To write a review, you must be logged in and have purchased this item. (Review submission logic available in API)</p>
-            </div>
+            {userInfo ? (
+              <form onSubmit={submitReviewHandler} className="bg-card p-6 rounded-xl border shadow-sm max-w-2xl space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Rating</label>
+                  <select
+                    value={rating}
+                    onChange={(e) => setRating(Number(e.target.value))}
+                    required
+                    className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm"
+                  >
+                    <option value="">Select...</option>
+                    <option value="1">1 - Poor</option>
+                    <option value="2">2 - Fair</option>
+                    <option value="3">3 - Good</option>
+                    <option value="4">4 - Very Good</option>
+                    <option value="5">5 - Excellent</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Comment</label>
+                  <textarea
+                    rows="3"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    required
+                    className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  disabled={loadingProductReview}
+                  className="w-full inline-flex items-center justify-center rounded-md text-sm font-medium bg-primary text-primary-foreground h-10 px-4 shadow hover:bg-primary/90 disabled:opacity-50"
+                >
+                  {loadingProductReview ? 'Submitting...' : 'Submit Review'}
+                </button>
+              </form>
+            ) : (
+              <div className="bg-card p-6 rounded-xl border shadow-sm max-w-2xl">
+                <p className="text-muted-foreground text-sm">Please <Link to="/login" className="text-primary hover:underline">sign in</Link> to write a review.</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

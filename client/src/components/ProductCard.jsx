@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Heart, Star } from 'lucide-react';
+import { ShoppingCart, Heart, Star } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../slices/cartSlice';
 
@@ -7,45 +7,63 @@ const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = (e) => {
-    e.preventDefault(); 
+    e.preventDefault(); // Prevent navigating to product details when clicking the cart icon
     dispatch(addToCart({ ...product, qty: 1 }));
   };
 
   return (
-    <Link to={`/product/${product._id}`} className="group relative rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md flex flex-col h-full overflow-hidden p-3">
+    <Link to={`/product/${product._id}`} className="group relative rounded-xl border bg-card text-card-foreground shadow-sm transition-all hover:shadow-md flex flex-col h-full overflow-hidden">
       {/* Image Container */}
-      <div className="relative aspect-square overflow-hidden bg-white mb-3 rounded-lg">
+      <div className="relative aspect-square overflow-hidden bg-muted">
         <img 
           src={product.image} 
           alt={product.name} 
-          className="object-contain w-full h-full mix-blend-multiply transition-transform duration-300 group-hover:scale-105 p-4"
+          className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
         />
-        {/* Wishlist Heart always visible like in design */}
-        <button className="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors" aria-label="Add to wishlist">
-          <Heart className="w-5 h-5" />
-        </button>
+        {/* Badges */}
+        <div className="absolute top-2 left-2 flex flex-col gap-2">
+          {product.isTrending && (
+            <span className="bg-primary text-primary-foreground text-xs font-bold px-2 py-1 rounded">Trending</span>
+          )}
+          {product.discountPrice > 0 && (
+            <span className="bg-destructive text-destructive-foreground text-xs font-bold px-2 py-1 rounded">Sale</span>
+          )}
+        </div>
+        {/* Hover Actions */}
+        <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 transform translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+          <button className="bg-background/90 backdrop-blur p-2 rounded-full shadow-sm hover:bg-background text-muted-foreground hover:text-foreground transition-colors" aria-label="Add to wishlist">
+            <Heart className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
       {/* Content */}
-      <div className="flex flex-col flex-grow text-left">
-        <h3 className="font-bold text-sm leading-tight mb-1 line-clamp-2 text-gray-900">{product.name}</h3>
-        <span className="text-sm font-bold text-gray-900 mb-2">${product.discountPrice > 0 ? product.discountPrice : product.price}</span>
-        
-        {/* Stars */}
-        <div className="flex items-center gap-1 mb-4">
-          {[...Array(5)].map((_, i) => (
-             <Star key={i} className={`w-3 h-3 ${i < product.rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-200 text-gray-200'}`} />
-          ))}
-          <span className="text-xs text-gray-500 ml-1">({product.numReviews})</span>
+      <div className="p-4 flex flex-col flex-grow">
+        <div className="flex justify-between items-start mb-2">
+          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{product.brand}</p>
+          <div className="flex items-center gap-1">
+            <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+            <span className="text-xs font-medium">{product.rating}</span>
+          </div>
         </div>
         
-        <div className="mt-auto">
+        <h3 className="font-semibold text-sm leading-tight mb-2 line-clamp-2">{product.name}</h3>
+        
+        <div className="mt-auto flex items-center justify-between">
+          <div className="flex items-baseline gap-2">
+            <span className="text-lg font-bold">${product.discountPrice > 0 ? product.discountPrice : product.price}</span>
+            {product.discountPrice > 0 && (
+              <span className="text-xs text-muted-foreground line-through">${product.price}</span>
+            )}
+          </div>
+          
           <button 
             onClick={handleAddToCart}
             disabled={product.countInStock === 0}
-            className="w-full bg-blue-600 text-white font-bold py-2 rounded-full hover:bg-blue-700 transition-colors text-xs uppercase disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-primary/10 text-primary p-2 rounded-full hover:bg-primary hover:text-primary-foreground transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Add to cart"
           >
-            {product.countInStock === 0 ? 'Out of Stock' : 'Add to Cart'}
+            <ShoppingCart className="w-4 h-4" />
           </button>
         </div>
       </div>

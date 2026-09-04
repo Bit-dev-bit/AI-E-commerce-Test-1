@@ -9,68 +9,88 @@ const Home = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-700 via-blue-500 to-cyan-400 text-white overflow-hidden relative">
-        <div className="container mx-auto px-4 py-24 md:py-32 flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 z-10">
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-4 uppercase leading-none">
-              Empower <br /> Your Stride
+      <section className="relative bg-muted overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent"></div>
+        <div className="container mx-auto px-4 py-24 relative flex flex-col md:flex-row items-center">
+          <div className="md:w-1/2 mb-10 md:mb-0">
+            <span className="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
+              New Arrival
+            </span>
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
+              Discover Next-Gen <br className="hidden md:block" /> Electronics
             </h1>
-            <p className="text-xl mb-8 opacity-90 max-w-md">
-              Empower your active runner with our premium gear.
+            <p className="text-lg text-muted-foreground mb-8 max-w-lg">
+              Upgrade your lifestyle with our premium selection of smartphones, headphones, and smart home devices.
             </p>
-            <Link 
-              to="/shop" 
-              className="inline-flex h-12 items-center justify-center rounded-full bg-white text-blue-700 px-8 text-sm font-bold shadow hover:bg-gray-100 transition-colors uppercase"
-            >
-              Shop Now
-            </Link>
+            <div className="flex flex-wrap gap-4">
+              <Link to="/shop" className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring bg-primary text-primary-foreground shadow hover:bg-primary/90 h-11 px-8">
+                Shop Now
+              </Link>
+              <Link to="/deals" className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground h-11 px-8">
+                View Deals
+              </Link>
+            </div>
           </div>
-          <div className="md:w-1/2 mt-12 md:mt-0 relative flex justify-center">
-            {/* Placeholder for runner image */}
-            <div className="w-96 h-96 bg-white/10 rounded-full blur-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?q=80&w=800&auto=format&fit=crop" 
-              alt="Runner" 
-              className="relative z-10 w-full max-w-md h-[400px] object-cover object-top rounded-2xl shadow-2xl mix-blend-overlay opacity-90"
-            />
+          <div className="md:w-1/2 flex justify-center">
+            {/* Placeholder for Hero Image */}
+            <div className="w-full max-w-md aspect-square bg-gradient-to-tr from-gray-200 to-gray-100 dark:from-gray-800 dark:to-gray-700 rounded-full flex items-center justify-center shadow-2xl relative">
+                <img src="/images/airpods.jpg" alt="Featured Product" className="object-cover rounded-full w-4/5 h-4/5 shadow-xl border-8 border-background" />
+                
+                {/* Floating Elements */}
+                <div className="absolute top-10 right-10 bg-background p-3 rounded-xl shadow-lg border animate-bounce">
+                  <span className="font-bold text-lg">Save 20%</span>
+                </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Collections Placeholder */}
-      <section className="py-16 bg-white">
+      {/* Features Section */}
+      <section className="py-12 border-b">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-8">Featured Collections</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Link to="/shop?category=Running" className="relative h-64 rounded-2xl overflow-hidden group cursor-pointer">
-              <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=800" alt="Running" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
-                <span className="text-white font-bold text-xl">Running Shop &gt;</span>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="flex flex-col items-center text-center p-4">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
+                <Truck className="h-6 w-6" />
               </div>
-            </Link>
-            <Link to="/shop?category=Yoga" className="relative h-64 rounded-2xl overflow-hidden group cursor-pointer">
-              <img src="https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?q=80&w=800" alt="Yoga" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
-                <span className="text-white font-bold text-xl">Yoga Shop &gt;</span>
+              <h3 className="font-semibold mb-1">Free Shipping</h3>
+              <p className="text-sm text-muted-foreground">On all orders over $100</p>
+            </div>
+            <div className="flex flex-col items-center text-center p-4">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
+                <ShieldCheck className="h-6 w-6" />
               </div>
-            </Link>
-            <Link to="/shop?category=Training" className="relative h-64 rounded-2xl overflow-hidden group cursor-pointer">
-              <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=800" alt="Training" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
-                <span className="text-white font-bold text-xl">Training Shop &gt;</span>
+              <h3 className="font-semibold mb-1">Secure Payment</h3>
+              <p className="text-sm text-muted-foreground">100% secure payment</p>
+            </div>
+            <div className="flex flex-col items-center text-center p-4">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
+                <RefreshCcw className="h-6 w-6" />
               </div>
-            </Link>
+              <h3 className="font-semibold mb-1">30 Days Return</h3>
+              <p className="text-sm text-muted-foreground">If goods have problems</p>
+            </div>
+            <div className="flex flex-col items-center text-center p-4">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4">
+                <Zap className="h-6 w-6" />
+              </div>
+              <h3 className="font-semibold mb-1">24/7 Support</h3>
+              <p className="text-sm text-muted-foreground">Dedicated support</p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Featured Products */}
-      <section className="py-16 bg-white">
+      <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold tracking-tight">New Arrivals</h2>
-            <Link to="/shop" className="text-blue-600 font-medium hover:underline text-sm">
-              Show all
+          <div className="flex justify-between items-end mb-8">
+            <div>
+              <h2 className="text-3xl font-bold tracking-tight mb-2">Featured Products</h2>
+              <p className="text-muted-foreground">Top quality electronics handpicked for you.</p>
+            </div>
+            <Link to="/shop" className="hidden sm:flex items-center text-primary font-medium hover:underline">
+              View All <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
           </div>
 
@@ -95,6 +115,12 @@ const Home = () => {
               ))}
             </div>
           )}
+          
+          <div className="mt-8 text-center sm:hidden">
+             <Link to="/shop" className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input bg-transparent h-10 px-4 w-full">
+              View All Products
+            </Link>
+          </div>
         </div>
       </section>
     </div>

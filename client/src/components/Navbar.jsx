@@ -74,14 +74,25 @@ const Navbar = () => {
           {userInfo ? (
             <div className="flex items-center gap-4">
               {userInfo.isAdmin && (
-                <Link to="/admin/productlist" className="text-sm font-medium text-primary hover:underline">
-                  Admin
-                </Link>
+                <div className="flex items-center gap-3 mr-2">
+                  <Link to="/admin/productlist" className="text-xs font-bold text-primary hover:text-white transition-colors bg-primary/10 px-2 py-1 rounded">
+                    Products
+                  </Link>
+                  <Link to="/admin/orderlist" className="text-xs font-bold text-primary hover:text-white transition-colors bg-primary/10 px-2 py-1 rounded">
+                    Orders
+                  </Link>
+                  <Link to="/admin/userlist" className="text-xs font-bold text-primary hover:text-white transition-colors bg-primary/10 px-2 py-1 rounded">
+                    Users
+                  </Link>
+                </div>
               )}
               <Link to="/profile" className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors">
                 <User className="w-5 h-5" />
                 <span className="hidden sm:inline-block">{userInfo.name}</span>
               </Link>
+              <button onClick={logoutHandler} className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
+                Logout
+              </button>
             </div>
           ) : (
             <Link to="/login" className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">

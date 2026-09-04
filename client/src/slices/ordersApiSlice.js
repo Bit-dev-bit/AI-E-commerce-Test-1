@@ -33,6 +33,13 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
       transformResponse: (response) => response.data,
     }),
+    getOrders: builder.query({
+      query: () => ({
+        url: ORDERS_URL,
+      }),
+      keepUnusedDataFor: 5,
+      transformResponse: (response) => response.data,
+    }),
   }),
 });
 
@@ -41,4 +48,5 @@ export const {
   useGetOrderDetailsQuery,
   usePayOrderMutation,
   useGetMyOrdersQuery,
+  useGetOrdersQuery,
 } = ordersApiSlice;

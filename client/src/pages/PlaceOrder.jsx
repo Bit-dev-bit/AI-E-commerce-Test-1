@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useCreateOrderMutation } from '../slices/ordersApiSlice';
 import { clearCartItems } from '../slices/cartSlice';
 import { CheckCircle } from 'lucide-react';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 const PlaceOrder = () => {
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ const PlaceOrder = () => {
 
   return (
     <div className="container mx-auto px-4 py-12">
+      <CheckoutSteps step1 step2 step3 step4 />
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="lg:w-2/3 space-y-6">
           <div className="bg-card p-6 rounded-xl border shadow-sm">

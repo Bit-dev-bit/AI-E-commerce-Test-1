@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { savePaymentMethod } from '../slices/cartSlice';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const Payment = () => {
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-xl">
+      <CheckoutSteps step1 step2 step3 />
       <div className="bg-card p-8 rounded-xl border shadow-sm">
         <h1 className="text-2xl font-bold mb-6">Payment Method</h1>
         
