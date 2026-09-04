@@ -33,11 +33,11 @@ const Home = () => {
           </div>
           <div className="md:w-1/2 flex justify-center">
             {/* Placeholder for Hero Image */}
-            <div className="w-full max-w-md aspect-square bg-gradient-to-tr from-gray-200 to-gray-100 dark:from-gray-800 dark:to-gray-700 rounded-full flex items-center justify-center shadow-2xl relative">
-                <img src="/images/airpods.jpg" alt="Featured Product" className="object-cover rounded-full w-4/5 h-4/5 shadow-xl border-8 border-background" />
+            <div className="w-full max-w-md aspect-square bg-gradient-to-tr from-primary/20 to-primary/5 dark:from-primary/10 dark:to-background rounded-full flex items-center justify-center shadow-2xl relative">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop" alt="Featured Product" className="object-cover rounded-full w-[85%] h-[85%] shadow-xl border-[12px] border-background" />
                 
                 {/* Floating Elements */}
-                <div className="absolute top-10 right-10 bg-background p-3 rounded-xl shadow-lg border animate-bounce">
+                <div className="absolute top-10 right-0 bg-background p-3 rounded-xl shadow-lg border animate-bounce z-10">
                   <span className="font-bold text-lg">Save 20%</span>
                 </div>
             </div>
