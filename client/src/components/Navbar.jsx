@@ -20,74 +20,71 @@ const Navbar = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#0f172a] text-white border-b border-white/10 shadow-sm h-16">
-      <div className="container mx-auto px-4 h-full flex items-center justify-between">
+    <header className="fixed top-0 w-full z-50 bg-[#0a1128] text-white border-b border-transparent shadow-sm">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <div className="flex items-center justify-center w-8 h-8 bg-blue-600 rounded text-white font-bold text-xl leading-none">A</div>
-          <span className="text-xl font-bold tracking-tight">Apex Athletics</span>
+        <Link to="/" className="text-2xl font-bold tracking-tighter flex items-center gap-2">
+          <span className="text-primary text-3xl">A</span> E-COMMERCE
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8 text-white/90">
-          <Link to="/shop" className="text-sm font-medium hover:text-white transition-colors">
-            New
+        <nav className="hidden md:flex items-center space-x-8">
+          <Link to="/shop" className="text-sm font-medium hover:text-primary transition-colors">
+            Shop
           </Link>
-          <Link to="/shop?category=Men" className="text-sm font-medium hover:text-white transition-colors">
-            Mens
+          <Link to="/shop?category=Electronics" className="text-sm font-medium hover:text-primary transition-colors">
+            Categories
           </Link>
-          <Link to="/shop?category=Women" className="text-sm font-medium hover:text-white transition-colors">
-            Womens
-          </Link>
-          <Link to="/shop?category=Training" className="text-sm font-medium hover:text-white transition-colors">
-            Training
+          <Link to="/shop?sort=newest" className="text-sm font-medium hover:text-primary transition-colors">
+            Deals
           </Link>
         </nav>
 
         {/* Actions */}
-        <div className="flex items-center space-x-5 text-white/90">
-          <form onSubmit={searchHandler} className="hidden sm:flex items-center relative text-black">
-            <input 
-              type="text" 
-              placeholder="Search..." 
+        <div className="flex items-center space-x-4">
+          {/* Search Bar */}
+          <form onSubmit={searchHandler} className="hidden md:flex relative">
+            <input
+              type="text"
+              placeholder="Search..."
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
-              className="h-9 w-48 rounded-full border-none bg-white/10 text-white placeholder-white/50 px-4 py-1 text-sm transition-all focus:w-64 focus:bg-white focus:text-black focus:outline-none"
+              className="w-48 lg:w-64 pl-10 pr-4 py-2 rounded-full text-sm bg-white/10 border-transparent focus:bg-white focus:text-black focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-gray-400"
             />
-            <button type="submit" aria-label="Search" className="absolute right-3 text-white/70 hover:text-white">
-              <Search className="w-4 h-4" />
-            </button>
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
           </form>
-          
-          <Link to="/cart" className="relative hover:text-white transition-colors">
-            <ShoppingCart className="w-5 h-5" />
+
+          {/* Cart */}
+          <Link to="/cart" className="relative p-2 hover:text-primary transition-colors">
+            <ShoppingCart className="h-5 w-5" />
             {cartItems.length > 0 && (
-              <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
+              <span className="absolute top-0 right-0 h-4 w-4 bg-primary text-white text-[10px] font-bold flex items-center justify-center rounded-full">
                 {cartItems.reduce((a, c) => a + c.qty, 0)}
               </span>
             )}
           </Link>
 
+          {/* User / Auth */}
           {userInfo ? (
             <div className="flex items-center gap-4">
               {userInfo.isAdmin && (
-                <Link to="/admin/productlist" className="text-sm font-medium text-blue-400 hover:underline">
+                <Link to="/admin/productlist" className="text-sm font-medium text-primary hover:underline">
                   Admin
                 </Link>
               )}
-              <Link to="/profile" className="flex items-center gap-2 text-sm font-medium hover:text-white transition-colors">
+              <Link to="/profile" className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors">
                 <User className="w-5 h-5" />
-                <span className="hidden sm:inline-block">Account</span>
+                <span className="hidden sm:inline-block">{userInfo.name}</span>
               </Link>
             </div>
           ) : (
-            <Link to="/login" className="flex items-center gap-2 text-sm font-medium hover:text-white transition-colors">
+            <Link to="/login" className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
               <User className="w-5 h-5" />
-              <span className="hidden sm:inline-block">Account</span>
+              <span className="hidden sm:inline-block">Sign In</span>
             </Link>
           )}
 
-          <button className="md:hidden hover:text-white transition-colors">
+          <button className="md:hidden text-muted-foreground hover:text-foreground transition-colors">
             <Menu className="w-6 h-6" />
           </button>
         </div>
