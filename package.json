@@ -1,0 +1,19 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "MERN Ecommerce",
+  "main": "server/src/server.js",
+  "scripts": {
+    "start": "node server/src/server.js",
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "npm run data:import --prefix server",
+    "data:destroy": "npm run data:destroy --prefix server",
+    "build": "npm install && npm install --prefix client && npm run build --prefix client"
+  },
+  "type": "module",
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
+}
