@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, User, Search, Menu } from 'lucide-react';
-import { useSelector } from 'react-redux';
+import { ShoppingCart, User, Search, Store, Menu } from 'lucide-react';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../slices/authSlice';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -9,6 +11,7 @@ const Navbar = () => {
   
   const [keyword, setKeyword] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const searchHandler = (e) => {
     e.preventDefault();
@@ -23,8 +26,8 @@ const Navbar = () => {
     <header className="fixed top-0 w-full z-50 bg-[#0a1128] text-white border-b border-transparent shadow-sm">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="text-2xl font-bold tracking-tighter flex items-center gap-2">
-          <span className="text-primary text-3xl">A</span> E-COMMERCE
+        <Link to="/" className="text-2xl font-bold tracking-tighter flex items-center gap-2 hover:text-primary transition-colors">
+          <Store className="h-7 w-7 text-primary" /> E-MART
         </Link>
 
         {/* Desktop Navigation */}
@@ -54,8 +57,11 @@ const Navbar = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
           </form>
 
+          {/* Dark Mode Toggle */}
+          <ThemeToggle />
+
           {/* Cart */}
-          <Link to="/cart" className="relative p-2 hover:text-primary transition-colors">
+          <Link to="/cart" className="relative p-2 hover:text-primary transition-colors text-gray-300">
             <ShoppingCart className="h-5 w-5" />
             {cartItems.length > 0 && (
               <span className="absolute top-0 right-0 h-4 w-4 bg-primary text-white text-[10px] font-bold flex items-center justify-center rounded-full">
