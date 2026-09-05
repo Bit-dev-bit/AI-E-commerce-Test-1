@@ -12,6 +12,8 @@ import Payment from './pages/Payment';
 import PlaceOrder from './pages/PlaceOrder';
 import Order from './pages/Order';
 import Profile from './pages/Profile';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import { AdminRoute, PrivateRoute } from './components/RouteGuards';
 import ProductList from './pages/admin/ProductList';
 import ProductEdit from './pages/admin/ProductEdit';
@@ -31,6 +33,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           
           <Route path="" element={<PrivateRoute />}>
             <Route path="/shipping" element={<Shipping />} />

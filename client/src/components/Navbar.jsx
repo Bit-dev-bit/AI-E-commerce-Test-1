@@ -22,6 +22,11 @@ const Navbar = () => {
     }
   };
 
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
+
   return (
     <header className="fixed top-0 w-full z-50 bg-[#0a1128] text-white border-b border-transparent shadow-sm">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">

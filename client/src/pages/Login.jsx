@@ -57,31 +57,35 @@ const Login = () => {
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium mb-1">Password</label>
+          <div className="space-y-1">
+            <div className="flex items-center justify-between">
+              <label className="block text-sm font-medium">Password</label>
+              <Link to="/forgot-password" className="text-sm font-medium text-primary hover:underline">
+                Forgot password?
+              </Link>
+            </div>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-              placeholder="••••••••"
               required
+              className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm"
             />
           </div>
 
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-primary text-primary-foreground h-10 px-4 shadow hover:bg-primary/90 disabled:opacity-50 mt-4"
+            className="w-full inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-primary text-primary-foreground h-10 px-4 shadow hover:bg-primary/90 disabled:opacity-50"
           >
             {isLoading ? 'Signing In...' : 'Sign In'}
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm">
-          <span className="text-muted-foreground">Don't have an account? </span>
-          <Link to={redirect ? `/register?redirect=${redirect}` : '/register'} className="text-primary font-medium hover:underline">
-            Sign up
+        <div className="mt-4 text-center text-sm">
+          New Customer?{' '}
+          <Link to={redirect ? `/register?redirect=${redirect}` : '/register'} className="text-primary hover:underline font-medium">
+            Register Here
           </Link>
         </div>
       </div>
